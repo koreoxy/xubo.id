@@ -98,7 +98,7 @@ export default function Error({
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:hello@xubo.id"
+              href="mailto:rayssankn@gmail.com"
               className="inline-flex items-center justify-center px-6 py-3 bg-gray-700/50 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-green-400 transition-all duration-200"
             >
               <Mail className="w-4 h-4 mr-2" />

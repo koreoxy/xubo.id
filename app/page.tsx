@@ -19,6 +19,7 @@ import {
   Zap,
   Shield,
   ExternalLink,
+  BriefcaseBusiness,
 } from "lucide-react";
 import TestimonialsSection from "@/components/TestimonialsSection";
 
@@ -56,6 +57,11 @@ export default function Home() {
       title: "Website Tugas Mahasiswa",
       description:
         "Bantuan pembuatan website untuk keperluan akademik dengan standar profesional",
+    },
+    {
+      icon: <BriefcaseBusiness className="w-8 h-8" />,
+      title: "Website Personal/Portofolio",
+      description: "Pembuatan website untuk keperluan Personal atau Portofolio",
     },
   ];
 
@@ -270,13 +276,11 @@ export default function Home() {
             <div className="relative">
               <div className="relative z-10">
                 <Image
-                  src="/images/hero-bg.jpg"
+                  src="/images/hero-icon.png"
                   alt="Website Development"
                   width={600}
                   height={400}
-                  className="rounded-2xl shadow-2xl border border-gray-800"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent rounded-2xl"></div>
               </div>
               <div className="absolute -top-4 -right-4 w-72 h-72 bg-green-500/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
               <div className="absolute -bottom-8 -left-4 w-72 h-72 bg-emerald-500/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
@@ -367,7 +371,7 @@ export default function Home() {
 
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-green-600/20 border border-green-600/30 text-green-400 text-xs rounded-full backdrop-blur-sm">
+                      <span className="px-3 py-1 bg-green-600/50 border border-green-600/30 text-white text-xs rounded-full backdrop-blur-sm">
                         {project.category}
                       </span>
                     </div>
