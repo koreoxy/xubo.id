@@ -17,25 +17,29 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.instagram.com/xubo.id"
+                target="_blank"
                 className="text-gray-500 hover:text-green-400 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
               >
                 <Instagram size={24} />
               </a>
               <a
-                href="#"
+                href="https://github.com/koreoxy"
+                target="_blank"
                 className="text-gray-500 hover:text-green-400 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
               >
                 <Github size={24} />
               </a>
               <a
-                href="#"
+                href="mailto:rayssankn@gmail.com"
+                target="_blank"
                 className="text-gray-500 hover:text-green-400 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
               >
                 <Mail size={24} />
               </a>
               <a
-                href="#"
+                href="https://wa.me/6285175086144"
+                target="_blank"
                 className="text-gray-500 hover:text-green-400 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
               >
                 <MessageCircle size={24} />
