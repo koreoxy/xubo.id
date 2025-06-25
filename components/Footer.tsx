@@ -95,6 +95,7 @@ const Footer = () => {
                 <br />
                 <a
                   href="mailto:rayssankn@gmail.com"
+                  target="_blank"
                   className="hover:text-green-400 transition-colors duration-200"
                 >
                   rayssankn@gmail.com
@@ -104,10 +105,11 @@ const Footer = () => {
                 <span className="font-medium text-white">WhatsApp:</span>
                 <br />
                 <a
-                  href="https://wa.me/6281234567890"
+                  href="https://wa.me/6285175086144"
+                  target="_blank"
                   className="hover:text-green-400 transition-colors duration-200"
                 >
-                  +62 812-3456-7890
+                  +62 851-7508-6144
                 </a>
               </li>
             </ul>

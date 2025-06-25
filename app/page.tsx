@@ -462,7 +462,13 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-semibold text-white">WhatsApp</div>
-                    <div className="text-gray-400">+62 812-3456-7890</div>
+                    <a
+                      className="text-gray-400 hover:text-green-400"
+                      href="https://wa.me/6285175086144"
+                      target="_blank"
+                    >
+                      +62 851-7508-6144
+                    </a>
                     <div className="text-sm text-green-400">
                       Fast Response 24/7
                     </div>
@@ -475,7 +481,13 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-semibold text-white">Email</div>
-                    <div className="text-gray-400">hello@xubo.id</div>
+                    <a
+                      className="text-gray-400 hover:text-green-400"
+                      href="mailto:rayssankn@gmail.com"
+                      target="_blank"
+                    >
+                      rayssankn@gmail.com
+                    </a>
                     <div className="text-sm text-green-400">
                       Professional Consultation
                     </div>
