@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ProjectModal from "@/components/ProjectModal";
 import Image from "next/image";
 import {
   Code,
@@ -7,7 +11,6 @@ import {
   Globe,
   Server,
   GraduationCap,
-  Star,
   ArrowRight,
   CheckCircle,
   MessageCircle,
@@ -15,9 +18,14 @@ import {
   Sparkles,
   Zap,
   Shield,
+  ExternalLink,
 } from "lucide-react";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 export default function Home() {
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const services = [
     {
       icon: <Palette className="w-8 h-8" />,
@@ -53,39 +61,141 @@ export default function Home() {
 
   const projects = [
     {
+      id: "ecommerce-platform",
       title: "E-Commerce Platform",
-      image: "/images/project1.png",
       description:
         "Platform e-commerce modern dengan fitur lengkap, payment gateway, dan dashboard admin yang powerful",
-      tech: ["Next.js", "Node.js", "MongoDB"],
+      longDescription:
+        "Platform e-commerce yang dibangun dengan teknologi modern untuk memberikan pengalaman berbelanja online yang seamless. Dilengkapi dengan sistem manajemen produk yang komprehensif, multiple payment gateway, real-time inventory tracking, dan analytics dashboard yang detail untuk membantu pemilik bisnis mengoptimalkan penjualan mereka.",
+      image: "/images/project1.png",
+      images: [
+        "/images/project1.png",
+        "/images/hero-bg.jpg",
+        "/images/project2.png",
+      ],
+      tech: ["Next.js", "Node.js", "MongoDB", "Stripe", "Redis", "Docker"],
+      category: "E-Commerce",
+      client: "TechMart Indonesia",
+      duration: "4 Bulan",
+      year: "2024",
+      liveUrl: "https://techmart-demo.xubo.id",
+      githubUrl: "https://github.com/xubo/ecommerce-platform",
+      features: [
+        "Multi-vendor marketplace support",
+        "Real-time inventory management",
+        "Advanced search & filtering",
+        "Mobile-responsive design",
+        "Payment gateway integration",
+        "Order tracking system",
+        "Admin dashboard analytics",
+        "Customer review system",
+      ],
+      challenges: [
+        "Mengintegrasikan multiple payment gateway dengan sistem yang kompleks dan memastikan keamanan transaksi yang tinggi",
+        "Mengoptimalkan performa database untuk menangani ribuan produk dan transaksi concurrent",
+        "Membangun sistem real-time notification untuk order updates dan inventory changes",
+      ],
+      results: [
+        "Peningkatan konversi penjualan sebesar 45% dalam 3 bulan pertama",
+        "Waktu loading halaman berkurang 60% dibanding platform sebelumnya",
+        "User engagement meningkat 80% dengan fitur real-time notifications",
+        "Sistem dapat menangani 10,000+ concurrent users tanpa downtime",
+      ],
     },
     {
+      id: "corporate-website",
       title: "Corporate Website",
-      image: "/images/project2.png",
       description:
         "Website perusahaan dengan desain profesional, sistem CMS, dan optimasi SEO yang sempurna",
-      tech: ["React", "Tailwind", "Strapi"],
+      longDescription:
+        "Website corporate yang dirancang khusus untuk meningkatkan brand awareness dan kredibilitas perusahaan. Dilengkapi dengan content management system yang user-friendly, optimasi SEO yang comprehensive, dan integrasi dengan berbagai platform digital marketing untuk memaksimalkan reach dan engagement.",
+      image: "/images/project2.png",
+      images: [
+        "/images/project2.png",
+        "/images/hero-bg.jpg",
+        "/images/project1.png",
+      ],
+      tech: ["React", "Tailwind CSS", "Strapi", "PostgreSQL", "AWS"],
+      category: "Corporate",
+      client: "Innovate Solutions",
+      duration: "3 Bulan",
+      year: "2024",
+      liveUrl: "https://innovate-solutions.xubo.id",
+      githubUrl: "https://github.com/xubo/corporate-website",
+      features: [
+        "Custom CMS untuk content management",
+        "SEO optimization & meta tags",
+        "Multi-language support",
+        "Contact form dengan validation",
+        "Blog system dengan categories",
+        "Team member profiles",
+        "Service portfolio showcase",
+        "Client testimonials section",
+      ],
+      challenges: [
+        "Membangun CMS yang user-friendly namun powerful untuk non-technical users",
+        "Mengoptimalkan SEO untuk meningkatkan ranking di search engine",
+        "Mengintegrasikan multiple third-party services tanpa mengorbankan performa",
+      ],
+      results: [
+        "Organic traffic meningkat 200% dalam 6 bulan",
+        "Page load speed mencapai 95+ Google PageSpeed score",
+        "Lead generation meningkat 150% melalui contact forms",
+        "Brand awareness meningkat signifikan di digital channels",
+      ],
+    },
+    {
+      id: "learning-management",
+      title: "Learning Management System",
+      description:
+        "Platform pembelajaran online dengan fitur interaktif, quiz system, dan progress tracking",
+      longDescription:
+        "Sistem manajemen pembelajaran yang komprehensif untuk institusi pendidikan dan pelatihan korporat. Platform ini menyediakan environment yang interaktif untuk pembelajaran online dengan fitur-fitur canggih seperti virtual classroom, assessment tools, dan analytics yang detail untuk tracking progress siswa.",
+      image: "/images/hero-bg.jpg",
+      images: [
+        "/images/hero-bg.jpg",
+        "/images/project1.png",
+        "/images/project2.png",
+      ],
+      tech: ["Vue.js", "Laravel", "MySQL", "WebRTC", "Socket.io"],
+      category: "Education",
+      client: "EduTech Academy",
+      duration: "6 Bulan",
+      year: "2023",
+      liveUrl: "https://edutech-lms.xubo.id",
+      features: [
+        "Virtual classroom dengan video conferencing",
+        "Interactive quiz & assessment tools",
+        "Progress tracking & analytics",
+        "Discussion forums & chat",
+        "Assignment submission system",
+        "Grade book management",
+        "Certificate generation",
+        "Mobile app companion",
+      ],
+      challenges: [
+        "Mengimplementasikan real-time video conferencing yang stabil untuk ratusan participants",
+        "Membangun sistem assessment yang anti-cheating dengan multiple security layers",
+        "Mengoptimalkan platform untuk akses mobile dengan bandwidth terbatas",
+      ],
+      results: [
+        "Platform digunakan oleh 5,000+ siswa aktif",
+        "Completion rate meningkat 40% dibanding metode tradisional",
+        "Engagement time rata-rata 3x lebih tinggi",
+        "Feedback satisfaction score 4.8/5 dari users",
+      ],
     },
   ];
 
-  const testimonials = [
-    {
-      name: "Ahmad Rizki",
-      role: "CEO Startup Tech",
-      content:
-        "Xubo.id berhasil membuat website yang sangat sesuai dengan visi perusahaan kami. Tim yang profesional dan hasil yang memuaskan! Highly recommended untuk semua kebutuhan web development.",
-      rating: 5,
-      avatar: "AR",
-    },
-    {
-      name: "Sari Indah",
-      role: "Owner UMKM",
-      content:
-        "Pelayanan yang sangat baik dan website yang dibuat sangat membantu bisnis saya berkembang pesat. Support yang responsif dan hasil yang beyond expectation!",
-      rating: 5,
-      avatar: "SI",
-    },
-  ];
+  const openProjectModal = (project: any) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeProjectModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300);
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
@@ -160,7 +270,7 @@ export default function Home() {
             <div className="relative">
               <div className="relative z-10">
                 <Image
-                  src="/images/hero-bg.png"
+                  src="/images/hero-bg.jpg"
                   alt="Website Development"
                   width={600}
                   height={400}
@@ -230,31 +340,76 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div key={index} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-xl border border-gray-700 group-hover:border-green-600/50 transition-all duration-300">
-                  <Image
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    width={600}
-                    height={400}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div
+                key={project.id}
+                className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
+                onClick={() => openProjectModal(project)}
+              >
+                <div className="relative overflow-hidden rounded-xl border border-gray-700 group-hover:border-green-600/50 transition-all duration-300 bg-gray-800/50 backdrop-blur-sm">
+                  {/* Project Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={project.image || "/placeholder.svg"}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>
+
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-green-600/20 backdrop-blur-sm border border-green-600/30 rounded-full p-3">
+                        <ExternalLink className="w-6 h-6 text-green-400" />
+                      </div>
+                    </div>
+
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-green-600/20 border border-green-600/30 text-green-400 text-xs rounded-full backdrop-blur-sm">
+                        {project.category}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Project Info */}
+                  <div className="p-6">
                     <div className="flex flex-wrap gap-2 mb-3">
-                      {project.tech.map((tech, techIndex) => (
+                      {project.tech.slice(0, 3).map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-2 py-1 bg-green-600/20 border border-green-600/30 text-green-400 text-xs rounded-full"
+                          className="px-2 py-1 bg-gray-700/50 text-gray-400 text-xs rounded-full border border-gray-600"
                         >
                           {tech}
                         </span>
                       ))}
+                      {project.tech.length > 3 && (
+                        <span className="px-2 py-1 bg-gray-700/50 text-gray-400 text-xs rounded-full border border-gray-600">
+                          +{project.tech.length - 3}
+                        </span>
+                      )}
                     </div>
-                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-gray-300">{project.description}</p>
+
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors duration-200">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+
+                    {/* Project Meta */}
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <span>{project.client}</span>
+                      <span>{project.year}</span>
+                    </div>
+                  </div>
+
+                  {/* Click Indicator */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="text-green-400 text-xs font-medium">
+                      Click untuk detail →
+                    </div>
                   </div>
                 </div>
               </div>
@@ -264,57 +419,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center px-4 py-2 bg-green-900/30 border border-green-800/50 rounded-full text-green-400 text-sm font-medium mb-4">
-              <Star className="w-4 h-4 mr-2" />
-              Testimonials
-            </div>
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Kata Klien Kami
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Kepuasan klien adalah prioritas utama kami. Berikut testimoni dari
-              klien yang telah mempercayai layanan kami
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-gray-800/80 backdrop-blur-sm p-8 rounded-xl border border-gray-700"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-5 h-5 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-6 leading-relaxed text-lg">
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-white">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      {testimonial.role}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsSection />
 
       {/* Contact Section */}
       <section id="contact" className="py-20">
@@ -366,7 +471,7 @@ export default function Home() {
                   </div>
                   <div>
                     <div className="font-semibold text-white">Email</div>
-                    <div className="text-gray-400">rayssankn@gmail.com</div>
+                    <div className="text-gray-400">hello@xubo.id</div>
                     <div className="text-sm text-green-400">
                       Professional Consultation
                     </div>
@@ -442,6 +547,15 @@ export default function Home() {
       </section>
 
       <Footer />
+
+      {/* Project Modal */}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isModalOpen}
+          onClose={closeProjectModal}
+        />
+      )}
     </div>
   );
 }
