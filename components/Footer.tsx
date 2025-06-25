@@ -94,7 +94,7 @@ const Footer = () => {
                 <span className="font-medium text-white">Email:</span>
                 <br />
                 <a
-                  href="mailto:hello@xubo.id"
+                  href="mailto:rayssankn@gmail.com"
                   className="hover:text-green-400 transition-colors duration-200"
                 >
                   rayssankn@gmail.com
