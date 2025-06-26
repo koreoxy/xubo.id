@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://xubo.my.id
+Host: https://www.xubo.my.id
 
 # Sitemaps
-Sitemap: https://xubo.my.id/sitemap.xml
+Sitemap: https://www.xubo.my.id/sitemap.xml

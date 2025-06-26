@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://xubo.my.id",
+  siteUrl: "https://www.xubo.my.id",
   generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: "weekly",
