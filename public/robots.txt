@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://xubo.my.id
+
+# Sitemaps
+Sitemap: https://xubo.my.id/sitemap.xml
