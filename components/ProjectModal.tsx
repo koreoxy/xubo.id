@@ -189,7 +189,7 @@ export default function ProjectModal({
                   {project.tech.map((tech, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-green-600/20 border border-green-600/30 text-green-400 text-sm rounded-full backdrop-blur-sm"
+                      className="px-3 py-1 bg-green-900/50 border border-green-600/30 text-green-400 text-sm rounded-full backdrop-blur-sm"
                     >
                       {tech}
                     </span>

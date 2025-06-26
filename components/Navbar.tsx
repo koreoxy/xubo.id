@@ -1,4 +1,5 @@
 "use client";
+import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
@@ -210,9 +211,9 @@ const Navbar = () => {
                 </p>
                 <div className="flex justify-center space-x-6">
                   {[
-                    { name: "Instagram", icon: "📷" },
-                    { name: "GitHub", icon: "💻" },
-                    { name: "LinkedIn", icon: "💼" },
+                    { name: "Instagram", icon: <Instagram /> },
+                    { name: "GitHub", icon: <Github /> },
+                    { name: "LinkedIn", icon: <Linkedin /> },
                   ].map((social, index) => (
                     <a
                       key={social.name}
@@ -236,16 +237,22 @@ const Navbar = () => {
                 </p>
                 <div className="flex justify-center space-x-4 text-xs">
                   <a
-                    href="mailto:hello@xubo.id"
+                    href="mailto:rayssankn@gmail.com"
                     className="text-gray-400 hover:text-green-400 transition-colors duration-200"
                   >
-                    📧 hello@xubo.id
+                    <span className="flex flex-row items-center gap-2">
+                      <Mail size={10} />
+                      <p>rayssankn@gmail.com</p>
+                    </span>
                   </a>
                   <a
-                    href="https://wa.me/6281234567890"
+                    href="https://wa.me/6285175086144"
                     className="text-gray-400 hover:text-green-400 transition-colors duration-200"
                   >
-                    📱 WhatsApp
+                    <span className="flex flex-row items-center gap-2">
+                      <MessageCircle size={10} />
+                      <p>WhatsApp</p>
+                    </span>
                   </a>
                 </div>
               </div>

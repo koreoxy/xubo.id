@@ -7,10 +7,6 @@ import ProjectModal from "@/components/ProjectModal";
 import Image from "next/image";
 import {
   Code,
-  Palette,
-  Globe,
-  Server,
-  GraduationCap,
   ArrowRight,
   CheckCircle,
   MessageCircle,
@@ -19,179 +15,14 @@ import {
   Zap,
   Shield,
   ExternalLink,
-  BriefcaseBusiness,
 } from "lucide-react";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import { services } from "@/lib/services";
+import { projects } from "@/lib/projects";
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const services = [
-    {
-      icon: <Palette className="w-8 h-8" />,
-      title: "Design Website",
-      description:
-        "Desain UI/UX yang menarik dan user-friendly untuk website Anda dengan pendekatan modern",
-    },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Fullstack Website",
-      description:
-        "Pengembangan website lengkap dari frontend hingga backend dengan teknologi terkini",
-    },
-    {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Landing Page",
-      description:
-        "Landing page yang optimal untuk konversi dan engagement dengan performa tinggi",
-    },
-    {
-      icon: <Server className="w-8 h-8" />,
-      title: "Backend Development",
-      description:
-        "Sistem backend yang robust dan scalable untuk aplikasi enterprise Anda",
-    },
-    {
-      icon: <GraduationCap className="w-8 h-8" />,
-      title: "Website Tugas Mahasiswa",
-      description:
-        "Bantuan pembuatan website untuk keperluan akademik dengan standar profesional",
-    },
-    {
-      icon: <BriefcaseBusiness className="w-8 h-8" />,
-      title: "Website Personal/Portofolio",
-      description: "Pembuatan website untuk keperluan Personal atau Portofolio",
-    },
-  ];
-
-  const projects = [
-    {
-      id: "ecommerce-platform",
-      title: "E-Commerce Platform",
-      description:
-        "Platform e-commerce modern dengan fitur lengkap, payment gateway, dan dashboard admin yang powerful",
-      longDescription:
-        "Platform e-commerce yang dibangun dengan teknologi modern untuk memberikan pengalaman berbelanja online yang seamless. Dilengkapi dengan sistem manajemen produk yang komprehensif, multiple payment gateway, real-time inventory tracking, dan analytics dashboard yang detail untuk membantu pemilik bisnis mengoptimalkan penjualan mereka.",
-      image: "/images/project1.png",
-      images: [
-        "/images/project1.png",
-        "/images/hero-bg.jpg",
-        "/images/project2.png",
-      ],
-      tech: ["Next.js", "Node.js", "MongoDB", "Stripe", "Redis", "Docker"],
-      category: "E-Commerce",
-      client: "TechMart Indonesia",
-      duration: "4 Bulan",
-      year: "2024",
-      liveUrl: "https://techmart-demo.xubo.id",
-      githubUrl: "https://github.com/xubo/ecommerce-platform",
-      features: [
-        "Multi-vendor marketplace support",
-        "Real-time inventory management",
-        "Advanced search & filtering",
-        "Mobile-responsive design",
-        "Payment gateway integration",
-        "Order tracking system",
-        "Admin dashboard analytics",
-        "Customer review system",
-      ],
-      challenges: [
-        "Mengintegrasikan multiple payment gateway dengan sistem yang kompleks dan memastikan keamanan transaksi yang tinggi",
-        "Mengoptimalkan performa database untuk menangani ribuan produk dan transaksi concurrent",
-        "Membangun sistem real-time notification untuk order updates dan inventory changes",
-      ],
-      results: [
-        "Peningkatan konversi penjualan sebesar 45% dalam 3 bulan pertama",
-        "Waktu loading halaman berkurang 60% dibanding platform sebelumnya",
-        "User engagement meningkat 80% dengan fitur real-time notifications",
-        "Sistem dapat menangani 10,000+ concurrent users tanpa downtime",
-      ],
-    },
-    {
-      id: "corporate-website",
-      title: "Corporate Website",
-      description:
-        "Website perusahaan dengan desain profesional, sistem CMS, dan optimasi SEO yang sempurna",
-      longDescription:
-        "Website corporate yang dirancang khusus untuk meningkatkan brand awareness dan kredibilitas perusahaan. Dilengkapi dengan content management system yang user-friendly, optimasi SEO yang comprehensive, dan integrasi dengan berbagai platform digital marketing untuk memaksimalkan reach dan engagement.",
-      image: "/images/project2.png",
-      images: [
-        "/images/project2.png",
-        "/images/hero-bg.jpg",
-        "/images/project1.png",
-      ],
-      tech: ["React", "Tailwind CSS", "Strapi", "PostgreSQL", "AWS"],
-      category: "Corporate",
-      client: "Innovate Solutions",
-      duration: "3 Bulan",
-      year: "2024",
-      liveUrl: "https://innovate-solutions.xubo.id",
-      githubUrl: "https://github.com/xubo/corporate-website",
-      features: [
-        "Custom CMS untuk content management",
-        "SEO optimization & meta tags",
-        "Multi-language support",
-        "Contact form dengan validation",
-        "Blog system dengan categories",
-        "Team member profiles",
-        "Service portfolio showcase",
-        "Client testimonials section",
-      ],
-      challenges: [
-        "Membangun CMS yang user-friendly namun powerful untuk non-technical users",
-        "Mengoptimalkan SEO untuk meningkatkan ranking di search engine",
-        "Mengintegrasikan multiple third-party services tanpa mengorbankan performa",
-      ],
-      results: [
-        "Organic traffic meningkat 200% dalam 6 bulan",
-        "Page load speed mencapai 95+ Google PageSpeed score",
-        "Lead generation meningkat 150% melalui contact forms",
-        "Brand awareness meningkat signifikan di digital channels",
-      ],
-    },
-    {
-      id: "learning-management",
-      title: "Learning Management System",
-      description:
-        "Platform pembelajaran online dengan fitur interaktif, quiz system, dan progress tracking",
-      longDescription:
-        "Sistem manajemen pembelajaran yang komprehensif untuk institusi pendidikan dan pelatihan korporat. Platform ini menyediakan environment yang interaktif untuk pembelajaran online dengan fitur-fitur canggih seperti virtual classroom, assessment tools, dan analytics yang detail untuk tracking progress siswa.",
-      image: "/images/hero-bg.jpg",
-      images: [
-        "/images/hero-bg.jpg",
-        "/images/project1.png",
-        "/images/project2.png",
-      ],
-      tech: ["Vue.js", "Laravel", "MySQL", "WebRTC", "Socket.io"],
-      category: "Education",
-      client: "EduTech Academy",
-      duration: "6 Bulan",
-      year: "2023",
-      liveUrl: "https://edutech-lms.xubo.id",
-      features: [
-        "Virtual classroom dengan video conferencing",
-        "Interactive quiz & assessment tools",
-        "Progress tracking & analytics",
-        "Discussion forums & chat",
-        "Assignment submission system",
-        "Grade book management",
-        "Certificate generation",
-        "Mobile app companion",
-      ],
-      challenges: [
-        "Mengimplementasikan real-time video conferencing yang stabil untuk ratusan participants",
-        "Membangun sistem assessment yang anti-cheating dengan multiple security layers",
-        "Mengoptimalkan platform untuk akses mobile dengan bandwidth terbatas",
-      ],
-      results: [
-        "Platform digunakan oleh 5,000+ siswa aktif",
-        "Completion rate meningkat 40% dibanding metode tradisional",
-        "Engagement time rata-rata 3x lebih tinggi",
-        "Feedback satisfaction score 4.8/5 dari users",
-      ],
-    },
-  ];
 
   const openProjectModal = (project: any) => {
     setSelectedProject(project);
@@ -257,7 +88,7 @@ export default function Home() {
 
               <div className="flex items-center space-x-8 pt-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-400">50+</div>
+                  <div className="text-3xl font-bold text-green-400">10+</div>
                   <div className="text-sm text-gray-500">Projects Done</div>
                 </div>
                 <div className="text-center">
@@ -508,7 +339,7 @@ export default function Home() {
                       Pengalaman Terpercaya
                     </div>
                     <div className="text-sm text-gray-400">
-                      50+ project berhasil dengan tingkat kepuasan 100%
+                      10+ project berhasil dengan tingkat kepuasan 100%
                     </div>
                   </div>
                 </div>

@@ -151,7 +151,7 @@ export default function TestimonialsSection() {
   const stats = [
     {
       icon: <Users className="w-5 h-5 md:w-6 md:h-6" />,
-      value: "50+",
+      value: "10+",
       label: "Happy Clients",
       color: "text-blue-400",
     },
