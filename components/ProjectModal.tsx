@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import {
@@ -12,6 +11,9 @@ import {
   User,
   Tag,
   Globe,
+  ChevronLeft,
+  ChevronRight,
+  Clock
 } from "lucide-react";
 
 interface ProjectModalProps {
@@ -43,11 +45,9 @@ export default function ProjectModal({
   onClose,
 }: ProjectModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      setIsAnimating(true);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -88,265 +88,217 @@ export default function ProjectModal({
 
   const prevImage = () => {
     setCurrentImageIndex(
-      (prev) => (prev - 1 + project.images.length) % project.images.length
+      (prev) => (prev - 1 + project.images.length) % project.images.length,
     );
   };
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm transition-all duration-300 ${
-        isAnimating ? "opacity-100" : "opacity-0"
-      }`}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-brand-navy/60 backdrop-blur-md transition-opacity duration-300"
       onClick={handleBackdropClick}
     >
       <div
-        className={`relative w-full max-w-6xl max-h-[90vh] bg-gray-900 rounded-2xl border border-gray-700 overflow-hidden shadow-2xl transform transition-all duration-500 ease-out ${
-          isAnimating ? "scale-100 translate-y-0" : "scale-95 translate-y-8"
-        }`}
+        className="relative w-full max-w-5xl max-h-[90vh] bg-white rounded-2xl border border-brand-navy/10 overflow-hidden shadow-2xl flex flex-col font-body text-brand-navy"
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 bg-gray-800/80 hover:bg-gray-700 rounded-full transition-colors duration-200 group"
+          className="absolute top-4 right-4 z-25 p-2.5 bg-brand-cream/80 hover:bg-brand-cream hover:scale-105 rounded-full shadow-md text-brand-navy border border-brand-navy/10 transition-all duration-200"
         >
-          <X className="w-6 h-6 text-gray-400 group-hover:text-white" />
+          <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Content */}
-        <div className="overflow-y-auto max-h-[90vh] custom-scrollbar">
-          {/* Header Section */}
-          <div className="relative">
-            {/* Image Gallery */}
-            <div className="relative h-80 bg-gray-800">
-              <Image
-                src={project.images[currentImageIndex] || "/placeholder.svg"}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent" />
+        {/* Scrollable Container */}
+        <div className="overflow-y-auto custom-scrollbar flex-1">
+          {/* Header Section with Image Slider */}
+          <div className="relative h-80 sm:h-96 bg-brand-secondary border-b border-brand-navy/8">
+            <Image
+              src={project.images[currentImageIndex] || "/placeholder.svg"}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Soft Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
 
-              {/* Image Navigation */}
-              {project.images.length > 1 && (
-                <>
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-gray-900/50 hover:bg-gray-900/70 rounded-full transition-colors duration-200"
-                  >
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-gray-900/50 hover:bg-gray-900/70 rounded-full transition-colors duration-200"
-                  >
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+            {/* Slider Controls */}
+            {project.images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white text-brand-navy border border-brand-navy/10 rounded-full transition-all hover:scale-105 shadow-sm"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 hover:bg-white text-brand-navy border border-brand-navy/10 rounded-full transition-all hover:scale-105 shadow-sm"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
 
-                  {/* Image Indicators */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                    {project.images.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                          index === currentImageIndex
-                            ? "bg-green-400"
-                            : "bg-gray-500"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-
-              {/* Project Info Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {project.tech.map((tech, index) => (
-                    <span
+                {/* Dot Indicators */}
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 z-10">
+                  {project.images.map((_, index) => (
+                    <button
                       key={index}
-                      className="px-3 py-1 bg-green-900/50 border border-green-600/30 text-green-400 text-sm rounded-full backdrop-blur-sm"
-                    >
-                      {tech}
-                    </span>
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                        index === currentImageIndex
+                          ? "bg-brand-navy w-6"
+                          : "bg-brand-navy/20"
+                      }`}
+                    />
                   ))}
                 </div>
-                <h2 className="text-3xl font-bold mb-2">{project.title}</h2>
-                <p className="text-gray-300 text-lg">{project.description}</p>
-              </div>
+              </>
+            )}
+
+            {/* Float Info */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 flex flex-col justify-end">
+              <span className="self-start px-3 py-1 bg-brand-navy text-brand-cream text-xs rounded-full font-bold uppercase tracking-wider mb-2">
+                {project.category}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold font-heading mb-1 text-brand-navy">
+                {project.title}
+              </h2>
             </div>
           </div>
 
-          {/* Content Section */}
-          <div className="p-8">
+          {/* Modal Grid content */}
+          <div className="p-6 sm:p-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Main Content */}
+              {/* Left Column: Description & lists */}
               <div className="lg:col-span-2 space-y-8">
-                {/* Project Description */}
+                {/* Description */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl font-bold mb-3 font-heading border-b border-brand-navy/10 pb-2">
                     Tentang Project
                   </h3>
-                  <p className="text-gray-400 leading-relaxed text-lg">
+                  <p className="text-brand-navy/85 leading-relaxed text-sm">
                     {project.longDescription}
                   </p>
                 </div>
 
                 {/* Features */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl font-bold mb-3 font-heading border-b border-brand-navy/10 pb-2">
                     Fitur Utama
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                     {project.features.map((feature, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-gray-400">{feature}</span>
+                      <div key={index} className="flex items-start space-x-2">
+                        <div className="w-1.5 h-1.5 bg-brand-navy rounded-full mt-2 flex-shrink-0" />
+                        <span className="text-brand-navy/80">{feature}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Challenges */}
+                {/* Challenges & Solutions */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
+                  <h3 className="text-xl font-bold mb-3 font-heading border-b border-brand-navy/10 pb-2">
                     Tantangan & Solusi
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {project.challenges.map((challenge, index) => (
                       <div
                         key={index}
-                        className="p-4 bg-gray-800/50 rounded-lg border border-gray-700"
+                        className="p-4 bg-brand-secondary rounded-xl border border-brand-navy/8 text-sm leading-relaxed"
                       >
-                        <p className="text-gray-400">{challenge}</p>
+                        <p className="text-brand-navy/80">{challenge}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Results */}
+                {/* Results & Impact */}
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-4">
-                    Hasil & Impact
+                  <h3 className="text-xl font-bold mb-3 font-heading border-b border-brand-navy/10 pb-2">
+                    Hasil & Dampak
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2 text-sm">
                     {project.results.map((result, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <div className="w-6 h-6 bg-green-600/20 border border-green-600/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <svg
-                            className="w-3 h-3 text-green-400"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
+                      <div key={index} className="flex items-start space-x-2.5">
+                        <div className="w-5 h-5 bg-brand-navy/5 border border-brand-navy/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-1.5 h-1.5 bg-brand-navy rounded-full" />
                         </div>
-                        <span className="text-gray-400">{result}</span>
+                        <span className="text-brand-navy/80">{result}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Sidebar */}
+              {/* Right Column: Metadata sidebar */}
               <div className="space-y-6">
-                {/* Project Info */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-xl font-bold text-white mb-4">
+                {/* Meta details card */}
+                <div className="bg-brand-secondary rounded-2xl p-6 border border-brand-navy/8">
+                  <h3 className="text-lg font-bold mb-4 font-heading border-b border-brand-navy/10 pb-2">
                     Informasi Project
                   </h3>
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <User className="w-5 h-5 text-green-400" />
+                    <div className="flex items-center space-x-3 text-sm">
+                      <User className="w-4 h-4 text-brand-navy flex-shrink-0" />
                       <div>
-                        <div className="text-sm text-gray-500">Client</div>
-                        <div className="text-white font-medium">
-                          {project.client}
-                        </div>
+                        <div className="text-[10px] text-brand-navy/40 font-bold uppercase tracking-wider">Client</div>
+                        <div className="font-semibold">{project.client}</div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <Calendar className="w-5 h-5 text-green-400" />
+                    <div className="flex items-center space-x-3 text-sm">
+                      <Calendar className="w-4 h-4 text-brand-navy flex-shrink-0" />
                       <div>
-                        <div className="text-sm text-gray-500">Tahun</div>
-                        <div className="text-white font-medium">
-                          {project.year}
-                        </div>
+                        <div className="text-[10px] text-brand-navy/40 font-bold uppercase tracking-wider">Tahun</div>
+                        <div className="font-semibold">{project.year}</div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <Tag className="w-5 h-5 text-green-400" />
+                    <div className="flex items-center space-x-3 text-sm">
+                      <Tag className="w-4 h-4 text-brand-navy flex-shrink-0" />
                       <div>
-                        <div className="text-sm text-gray-500">Kategori</div>
-                        <div className="text-white font-medium">
-                          {project.category}
-                        </div>
+                        <div className="text-[10px] text-brand-navy/40 font-bold uppercase tracking-wider">Kategori</div>
+                        <div className="font-semibold">{project.category}</div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <svg
-                        className="w-5 h-5 text-green-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                    <div className="flex items-center space-x-3 text-sm">
+                      <Clock className="w-4 h-4 text-brand-navy flex-shrink-0" />
                       <div>
-                        <div className="text-sm text-gray-500">Durasi</div>
-                        <div className="text-white font-medium">
-                          {project.duration}
-                        </div>
+                        <div className="text-[10px] text-brand-navy/40 font-bold uppercase tracking-wider">Durasi</div>
+                        <div className="font-semibold">{project.duration}</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
+                {/* Tech stack card */}
+                <div className="bg-brand-secondary rounded-2xl p-6 border border-brand-navy/8">
+                  <h3 className="text-lg font-bold mb-4 font-heading border-b border-brand-navy/10 pb-2">
+                    Tech Stack
+                  </h3>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tech.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-2.5 py-1 bg-white text-brand-navy text-xs font-semibold rounded-lg border border-brand-navy/8"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Action Buttons */}
-                <div className="space-y-3">
+                <div className="space-y-3 font-heading">
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center space-x-2 w-full px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200 shadow-lg shadow-green-600/25"
+                      className="btn-primary flex items-center justify-center space-x-2 w-full text-sm py-3"
                     >
-                      <Globe className="w-5 h-5" />
+                      <Globe className="w-4 h-4" />
                       <span>Lihat Website</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}
                   {project.githubUrl && (
@@ -354,30 +306,13 @@ export default function ProjectModal({
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center space-x-2 w-full px-6 py-3 border-2 border-gray-700 text-gray-300 font-semibold rounded-lg hover:border-green-600 hover:text-green-400 hover:bg-green-600/10 transition-all duration-200"
+                      className="btn-secondary flex items-center justify-center space-x-2 w-full text-sm py-3"
                     >
-                      <Github className="w-5 h-5" />
+                      <Github className="w-4 h-4" />
                       <span>Source Code</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}
-                </div>
-
-                {/* Technology Stack */}
-                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                  <h3 className="text-xl font-bold text-white mb-4">
-                    Technology Stack
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-gray-700/50 text-gray-300 text-sm rounded-full border border-gray-600"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>

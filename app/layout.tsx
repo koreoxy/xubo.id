@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
+import { Sora, Roboto } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["300", "400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Xubo.id - Professional Web Development Services",
@@ -74,7 +84,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`${sora.variable} ${roboto.variable} font-body antialiased`}>{children}</body>
     </html>
   );
 }

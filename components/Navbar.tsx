@@ -1,6 +1,7 @@
 "use client";
-import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, MessageCircle, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,51 +37,46 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  const navLinks = [
+    { href: "/#home", label: "Home" },
+    { href: "/#services", label: "Services" },
+    { href: "/#projects", label: "Projects" },
+  ];
+
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled || isMenuOpen
-            ? "bg-gray-900/98 backdrop-blur-xl shadow-xl border-b border-gray-700/50"
-            : "bg-gray-900/95 backdrop-blur-lg border-b border-gray-800/50"
+            ? "bg-brand-cream/90 backdrop-blur-md shadow-sm border-b border-brand-navy/8"
+            : "bg-brand-cream/80 backdrop-blur-sm border-b border-brand-navy/4"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex-shrink-0 z-50 relative">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-sm">
-                Xubo.id
-              </h1>
+              <a href="/#home" className="text-2xl font-extrabold text-brand-navy font-heading tracking-tight hover:opacity-90">
+                Xubo<span className="text-brand-navy-light">.id</span>
+              </a>
             </div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-8">
+              <div className="ml-10 flex items-center space-x-8 font-heading">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-brand-navy hover:text-brand-navy-light px-3 py-2 text-sm font-semibold transition-colors duration-200 relative group"
+                  >
+                    {link.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-navy transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                ))}
                 <a
-                  href="#home"
-                  className="text-gray-300 hover:text-green-400 px-3 py-2 text-sm font-medium transition-colors duration-200 relative group"
-                >
-                  Home
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a
-                  href="#services"
-                  className="text-gray-300 hover:text-green-400 px-3 py-2 text-sm font-medium transition-colors duration-200 relative group"
-                >
-                  Services
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a
-                  href="#projects"
-                  className="text-gray-300 hover:text-green-400 px-3 py-2 text-sm font-medium transition-colors duration-200 relative group"
-                >
-                  Projects
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a
-                  href="#contact"
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all duration-200 shadow-lg shadow-green-600/25 hover:shadow-green-600/40 hover:scale-105"
+                  href="/#contact"
+                  className="btn-primary py-2 px-6 rounded-lg text-sm"
                 >
                   Contact
                 </a>
@@ -91,34 +87,10 @@ const Navbar = () => {
             <div className="md:hidden z-50 relative">
               <button
                 onClick={toggleMenu}
-                className={`relative text-gray-300 hover:text-green-400 p-3 rounded-lg transition-all duration-300 ${
-                  isMenuOpen
-                    ? "bg-gray-800/80 text-green-400 shadow-lg"
-                    : "hover:bg-gray-800/50"
-                }`}
+                className="text-brand-navy p-2 rounded-lg hover:bg-brand-navy/5 transition-colors focus:outline-none"
                 aria-label="Toggle mobile menu"
               >
-                <div className="relative w-6 h-6">
-                  <span
-                    className={`absolute top-0 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
-                      isMenuOpen
-                        ? "rotate-45 translate-y-2.5"
-                        : "rotate-0 translate-y-0"
-                    }`}
-                  />
-                  <span
-                    className={`absolute top-2.5 left-0 w-6 h-0.5 bg-current transition-all duration-300 ease-in-out ${
-                      isMenuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"
-                    }`}
-                  />
-                  <span
-                    className={`absolute top-5 left-0 w-6 h-0.5 bg-current transform transition-all duration-300 ease-in-out ${
-                      isMenuOpen
-                        ? "-rotate-45 -translate-y-2.5"
-                        : "rotate-0 translate-y-0"
-                    }`}
-                  />
-                </div>
+                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
@@ -126,140 +98,115 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Navigation Overlay */}
-      <div
-        className={`md:hidden fixed inset-0 z-40 transition-all duration-500 ease-in-out ${
-          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      >
-        {/* Backdrop */}
-        <div
-          className={`absolute inset-0 transition-all duration-500 ${
-            isMenuOpen
-              ? "bg-gray-900/98 backdrop-blur-xl"
-              : "bg-transparent backdrop-blur-none"
-          }`}
-          onClick={closeMenu}
-        />
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed inset-0 z-40 flex flex-col bg-brand-cream"
+          >
+            {/* Decorative background glow */}
+            <div className="absolute top-20 left-10 w-48 h-48 bg-brand-navy/3 rounded-full blur-3xl" />
+            <div className="absolute bottom-20 right-10 w-48 h-48 bg-brand-navy/3 rounded-full blur-3xl" />
 
-        {/* Menu Content */}
-        <div
-          className={`relative h-full transition-all duration-500 ease-out ${
-            isMenuOpen ? "translate-y-0" : "-translate-y-full"
-          }`}
-        >
-          {/* Menu Background with Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/98 via-gray-800/95 to-gray-900/98" />
+            {/* Menu Items Container */}
+            <div className="relative z-10 pt-24 px-6 h-full flex flex-col justify-between pb-8">
+              {/* Navigation Links */}
+              <div className="space-y-4 flex flex-col">
+                {navLinks.map((item, index) => (
+                  <motion.a
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+                    key={item.href}
+                    href={item.href}
+                    className="group block text-brand-navy hover:text-brand-navy-light px-4 py-3 text-2xl font-bold font-heading rounded-xl hover:bg-brand-navy/5 transition-all duration-300"
+                    onClick={closeMenu}
+                  >
+                    <div className="flex items-center">
+                      <span className="w-2 h-2 bg-brand-navy rounded-full mr-4 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-125"></span>
+                      <span>{item.label}</span>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
 
-          {/* Decorative Elements */}
-          <div className="absolute top-20 left-10 w-32 h-32 bg-green-500/5 rounded-full blur-3xl animate-pulse" />
-          <div
-            className="absolute bottom-20 right-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          />
-
-          {/* Menu Items Container */}
-          <div className="relative z-10 pt-20 px-6 h-full flex flex-col">
-            {/* Navigation Links */}
-            <div className="flex-1 space-y-2">
-              {[
-                { href: "#home", label: "Home", delay: "100ms" },
-                { href: "#services", label: "Services", delay: "200ms" },
-                { href: "#projects", label: "Projects", delay: "300ms" },
-              ].map((item, index) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={`group block text-gray-300 hover:text-green-400 px-6 py-4 text-lg font-medium rounded-xl transition-all duration-300 hover:bg-gray-800/50 hover:translate-x-2 border border-transparent hover:border-gray-700/50 ${
-                    isMenuOpen ? "animate-slide-in-mobile" : ""
-                  }`}
-                  style={{ animationDelay: item.delay }}
-                  onClick={closeMenu}
+              {/* Action Buttons & Social Info */}
+              <div className="space-y-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="pt-6 border-t border-brand-navy/10"
                 >
-                  <div className="flex items-center">
-                    <span className="w-2 h-2 bg-green-400 rounded-full mr-4 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scale-125"></span>
-                    <span className="relative">
-                      {item.label}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-400 transition-all duration-300 group-hover:w-full"></span>
-                    </span>
+                  <a
+                    href="/#contact"
+                    className="btn-primary block w-full py-4 text-center text-lg font-semibold rounded-xl"
+                    onClick={closeMenu}
+                  >
+                    🚀 Get Started
+                  </a>
+                </motion.div>
+
+                {/* Social Links */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-center space-y-4"
+                >
+                  <p className="text-brand-navy/50 text-xs font-semibold uppercase tracking-wider">
+                    Follow us on social media
+                  </p>
+                  <div className="flex justify-center space-x-6">
+                    {[
+                      { name: "Instagram", icon: <Instagram className="w-5 h-5" /> },
+                      { name: "GitHub", icon: <Github className="w-5 h-5" /> },
+                      { name: "LinkedIn", icon: <Linkedin className="w-5 h-5" /> },
+                    ].map((social) => (
+                      <a
+                        key={social.name}
+                        href="#"
+                        className="text-brand-navy/70 hover:text-brand-navy transition-all duration-300 hover:scale-110"
+                      >
+                        {social.icon}
+                      </a>
+                    ))}
                   </div>
-                </a>
-              ))}
-            </div>
+                </motion.div>
 
-            {/* Contact Button */}
-            <div className="py-6 border-t border-gray-800/50">
-              <a
-                href="#contact"
-                className={`block bg-gradient-to-r from-green-600 to-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-xl shadow-green-600/25 hover:shadow-green-600/40 hover:scale-105 text-center border border-green-500/20 ${
-                  isMenuOpen ? "animate-slide-in-mobile" : ""
-                }`}
-                style={{ animationDelay: "400ms" }}
-                onClick={closeMenu}
-              >
-                <div className="flex items-center justify-center">
-                  <span className="mr-2">🚀</span>
-                  Get Started
-                </div>
-              </a>
-            </div>
-
-            {/* Social Links & Info */}
-            <div className="py-6 border-t border-gray-800/50">
-              <div className="text-center mb-4">
-                <p className="text-gray-500 text-sm mb-3">
-                  Follow us on social media
-                </p>
-                <div className="flex justify-center space-x-6">
-                  {[
-                    { name: "Instagram", icon: <Instagram /> },
-                    { name: "GitHub", icon: <Github /> },
-                    { name: "LinkedIn", icon: <Linkedin /> },
-                  ].map((social, index) => (
+                {/* Contact Info Footer */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-center pt-4 text-xs border-t border-brand-navy/10"
+                >
+                  <p className="text-brand-navy/40 font-semibold mb-2">Need help? Contact us:</p>
+                  <div className="flex justify-center space-x-4">
                     <a
-                      key={social.name}
-                      href="#"
-                      className={`flex flex-col items-center text-gray-400 hover:text-green-400 transition-all duration-300 hover:scale-110 ${
-                        isMenuOpen ? "animate-slide-in-mobile" : ""
-                      }`}
-                      style={{ animationDelay: `${500 + index * 100}ms` }}
+                      href="mailto:rayssankn@gmail.com"
+                      className="text-brand-navy/70 hover:text-brand-navy flex items-center gap-1 font-semibold"
                     >
-                      <span className="text-xl mb-1">{social.icon}</span>
-                      <span className="text-xs">{social.name}</span>
+                      <Mail size={12} />
+                      rayssankn@gmail.com
                     </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Contact Info */}
-              <div className="text-center">
-                <p className="text-gray-500 text-xs mb-2">
-                  Need help? Contact us:
-                </p>
-                <div className="flex justify-center space-x-4 text-xs">
-                  <a
-                    href="mailto:rayssankn@gmail.com"
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-200"
-                  >
-                    <span className="flex flex-row items-center gap-2">
-                      <Mail size={10} />
-                      <p>rayssankn@gmail.com</p>
-                    </span>
-                  </a>
-                  <a
-                    href="https://wa.me/6285175086144"
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-200"
-                  >
-                    <span className="flex flex-row items-center gap-2">
-                      <MessageCircle size={10} />
-                      <p>WhatsApp</p>
-                    </span>
-                  </a>
-                </div>
+                    <a
+                      href="https://wa.me/6285175086144"
+                      className="text-brand-navy/70 hover:text-brand-navy flex items-center gap-1 font-semibold"
+                    >
+                      <MessageCircle size={12} />
+                      WhatsApp
+                    </a>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
